@@ -63,13 +63,17 @@ const observable = new Observable((subscriber)=>{
         console.log("2) Data received from operator: ", data);
         return data.filter((user) => user.status === "active" && user.age > 18);
     }),
+    map((filteredData)=>{
+        console.log("3) Filtered data received from operator: ", filteredData);
+        return filteredData.reduce((sum, user)=>sum+user.age, 0)/filteredData.length;
+    })
 );
 
 
 // The observer will receive the value and log it to the console
 const observer = {
     next: (value)=>{
-        console.log("Value received", value);
+        console.log("Value received", parseInt(value));
     },
 
     error: (value)=>{
