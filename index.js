@@ -8,27 +8,27 @@ const users = {
         },
         {
             status: "inactive",
-            age: 24
+            age: 14
         },
         {
             status: "active",
-            age: 54
+            age: 14
         },
         {
             status: "active",
-            age: 54
+            age: 14
         },
         {
             status: "active",
-            age: 74
+            age: 14
         },
         {
             status: "active",
-            age: 18
+            age: 14
         },
         {
             status: "active",
-            age: 51
+            age: 14
         },
         {
             status: "inactive",
@@ -36,15 +36,15 @@ const users = {
         },
         {
             status: "active",
-            age: 58
+            age: 14
         },
         {
             status: "active",
-            age: 26
+            age: 14
         },
         {
             status: "active",
-            age: 24
+            age: 14
         }
     ]
 }
@@ -61,11 +61,18 @@ const observable = new Observable((subscriber)=>{
     }),
     map((data)=>{
         console.log("2) Data received from operator: ", data);
-        return data.filter((user) => user.status === "active" && user.age > 18);
+        return data.filter((user) => user.status === "active" && user.age > 10);
     }),
     map((filteredData)=>{
         console.log("3) Filtered data received from operator: ", filteredData);
         return filteredData.reduce((sum, user)=>sum+user.age, 0)/filteredData.length;
+    }),
+    map((value)=>{
+        console.log("4) Average age received from operator: ", parseInt(value));
+        if (value < 20) {
+            throw new Error("Average age is less than 20");
+        }
+        return value;
     })
 );
 
